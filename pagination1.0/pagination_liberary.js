@@ -132,6 +132,7 @@
                         },
                         success(data)
                         {    
+                            console.log(data);
 
                            manage_buffer.manage_buffer_AddData(data);
                            $("#loading").hide();
@@ -304,7 +305,7 @@
             tth='';
             $.each(manage_buffer.table_heading_names, function(index, value)
             {
-                tth+='<th>'+value+'</th>';
+                tth+='<th>'+sad+'</th>';
             });
             if(manage_buffer.search_div_counter==0)
             {

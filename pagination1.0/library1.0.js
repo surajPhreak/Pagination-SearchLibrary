@@ -1,5 +1,4 @@
-
-        var div_data_container={};
+ var div_data_container={};
         function make_table_pagination(ajax_url,ajax_data,table_div_id,data_per_page,search_enable_or_desiable,input_value,type,reload) 
         {
 
@@ -341,10 +340,15 @@
             var tr_id=0;
             $.each(current_page_data ,function (index, value)
             {   
+
+// console.log(value['Name']);
+
+
                 var ttd='';
                 var value_of_id='';
-                $.each(manage_buffer.table_coulmn_names, function(index,valueOfColumn)
+                $.each(manage_buffer.table_heading_names, function(index,valueOfColumn)
                 {                       
+                    // console.log(valueOfColumn);
                     
 
                     if(valueOfColumn=='id')
@@ -444,6 +448,9 @@
                     var data_per_page=div_data['data_per_page'];
                     var search_enable_or_desiable=true;
                     var reload='reload';
+
+
+                    // console.log(input_value);
                     make_table_pagination(ajax_url,ajax_data,table_div_id,data_per_page,search_enable_or_desiable,input_value,type,reload);
                 
                 
@@ -464,6 +471,9 @@
                     var input_value=value;
                     var data_per_page=div_data['data_per_page'];
                     var search_enable_or_desiable=true;
+
+ // console.log(ajax_url);
+                    
                     make_table_pagination(ajax_url,ajax_data,table_div_id,data_per_page,search_enable_or_desiable,input_value,type);
 
                     
@@ -471,8 +481,3 @@
             }
                
         });
-
-
-
-
-//pagination........

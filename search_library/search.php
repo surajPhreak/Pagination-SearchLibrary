@@ -72,9 +72,17 @@ class searching
         {
             $email=$output[0][0];    
         }
+
+    // print_r($input_new);
+    //         exit;
+
         $input_new= preg_replace('/\b[\d]+\b/', '', $input_new); 
         $input_new = preg_replace("/\b[-0-9a-zA-Z.+_]+@[-0-9a-zA-Z.+_]+.[a-zA-Z]{2,4}\b/",'',$input_new);  
         $pattern_string = "/\b[a-zA-Z_]+\b|\b\w*\d\w*\b/";
+
+ // print_r($input_new);
+ //            exit;
+
         if(preg_match_all($pattern_string, $input_new, $output))
         {   
             $name_ex_comp=$output[0];
@@ -82,22 +90,33 @@ class searching
             {   
                 array_push($expert_and_company, $name_ex_comp[$i]); 
             }
+
+
              
         }
+
+
         $data['string']=$expert_and_company; 
         array_push($data['string'], $email); 
         $data['email']=$email;    
+
+
         if($data['string'][0]='' AND $data['email']='')
         {
             echo "string";
         }
-
+// print_r($value_q);
+// exit;
         foreach ($query_data as $key => $value_q)
         {   
             if(!empty($data['string']))
             {
+
+
                 if ($value_q['type']=='string') 
-                {  
+                {
+
+
                     if(!empty($expert_and_company))
                     {
                         $attachment=array();
@@ -105,8 +124,16 @@ class searching
                         {    
                             array_push($attachment,''.$value_q['search_col_name'].' LIKE "%'.$value.'%"'); 
                         }
+
+  
                         $append_string_in_sql=implode(' OR ', $attachment);
-                        $query='SELECT '.$value_q['get_colms'].' FROM '.$value_q['table_name'].' WHERE '.$append_string_in_sql.'';
+
+
+
+                        $query='SELECT '.$value_q['get_colms'].' FROM '.$value_q['table_name'].' WHERE name LIKE "%'.$value.'%" or email LIKE "%'.$value.'%"';
+
+
+
                         array_push($query_array, $query);  
                     }
                     
@@ -115,9 +142,14 @@ class searching
             }
             if(!empty($data['email']))
             {
+$value_q['type'] = 'email';
+
+
                 if ($value_q['type']=='email') 
                 {   
-                    $query='SELECT '.$value_q['get_colms'].' FROM '.$value_q['table_name'].' WHERE '.$value_q['search_col_name'].'="'.$email.'"';
+                    $query='SELECT '.$value_q['get_colms'].' FROM '.$value_q['table_name'].' WHERE email LIKE "%'.$email.'%"';
+
+
                     array_push($query_array, $query);
                     array_push($get_ids,$value_q['get_id']); 
                 }
@@ -134,6 +166,8 @@ class searching
     function searching_data($ids_of_string)
     {   
         
+
+
         $Date1='';
         $month='';
         $year='';
@@ -273,6 +307,8 @@ class searching
 
     function get_ids($result,$string,$get_ids)
     {   
+
+
         for($i=0;$i<sizeof($get_ids);$i++)
         {   
            if(!isset($ids[$get_ids[$i]])) 
@@ -318,6 +354,9 @@ class searching
 
     function string_ids($expert_and_company,$string_ids,$type)
     {   
+
+
+
         $ids=array();
         foreach ($expert_and_company as $key => $value1)
         {   
